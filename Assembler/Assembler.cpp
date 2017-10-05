@@ -85,6 +85,9 @@ void Assembler::loadFile(){
 			}
 			source.close();
 			curLineNum = 0;	
+		}else{
+			cout << "Load File NOT FOUND!" << endl;
+			exit(1);
 		}
 	}
 	saveFile();
@@ -93,12 +96,14 @@ void Assembler::loadFile(){
 //Decodes the current line e.g if first pass then turn all operands and opcodes into machine code
 //Second pass turn variables into addresses and modify current lines
 void Assembler::decodeLine(int pass,string line){
+	line.erase(remove(line.begin(),line.end(),' '),line.end());//Remove all spaces from the line
+	line.erase(remove(line.begin(),line.end(),'\t'),line.end());
 	char first = line[0];
 	bool label = false;
 	int labellength = 0;
 		if(first != ';'){ //If the line is a comment 
 			if(pass == 1){
-				line.erase(remove(line.begin(),line.end(),' '),line.end());//Remove all spaces from the line
+				cout << line << endl;
 				for(int i = 0; i < line.length(); i++){
 					char letter = line[i];//Set the letter to the current char of the string at the index
 					if(letter == ':'){
@@ -113,6 +118,7 @@ void Assembler::decodeLine(int pass,string line){
 						if(SymbolTable.size() <= curLineNum){
 							SymbolTable.resize(curLineNum+1);
 						}
+						cout << "CurLine: " << curLineNum <<  ":Label Added: " << tempLabel << endl;
 						SymbolTable[curLineNum] = newLabel;//Add label to SymbolTable
 						label = true;
 						break;
@@ -125,7 +131,7 @@ void Assembler::decodeLine(int pass,string line){
 					opcode = line.substr(0,3);
 					for(int i = 3; i < line.length(); i++){
 						if(line[i] != ';'){
-							//cout << "test 1" << endl;
+						  // cout << "test 1" << opcode << endl;
 							operand += line[i];
 						}else{
 							break;
@@ -137,7 +143,7 @@ void Assembler::decodeLine(int pass,string line){
 					for(int i = labellength+3; i < line.length(); i++){
 						//cout << labellength << "//" << line[i] << "||" << i << endl;
 						if(line[i] != ';'){
-							//cout << "test 2" << endl;
+							//cout << "test 2" << opcode << endl;
 							operand += line[i];
 						}else{
 							break;
@@ -176,6 +182,7 @@ void Assembler::decodeLine(int pass,string line){
 				if(tempStorage.size() <= curLineNum){
 					tempStorage.resize(curLineNum+1);
 				}
+				//cout << *permstoreline << endl;
 				tempStorage[curLineNum] = permstoreline;//Add it to our temp storage
 
 			//If second pass

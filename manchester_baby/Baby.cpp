@@ -26,26 +26,32 @@ void Baby::initialise(){
 
 	//declare initial variables
 	isEnd = false; 
-	string line;
+	string line = "";
 	int lineCount = 0;
-	ifstream input;
 	
 	//resize store to given memory
 	store.resize(MEMORY_SIZE);
 
-	//read instructions from file
-	input.open("MachineCode.txt");
 
 	//read lines until end of file
-	while(input.eof() == false)
-	{
-		
-		getline(input, line);
-		store.at(lineCount) = line;
-		lineCount++;
+	ifstream input("MachineCode.txt");
+	if(input.is_open()){
+		while(input.eof() == false)
+		{
+			//read instructions from file
+			getline(input, line);
+			store.at(lineCount) = line;
+			lineCount++;
+		}
+		input.close();
+	}else{
+		cout << "ERROR MachineCode.txt DOES NOT EXIST!" << endl;
+		exit(1);
 	}
+
+	
 	//account for extra line count
-	lineCount= lineCount-1;
+	lineCount = lineCount-1;
 
 	//check for empty vector slots
 	if (lineCount < (MEMORY_SIZE-1))

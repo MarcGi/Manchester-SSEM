@@ -32,7 +32,7 @@ int main(){
 	baby.initialise();
 
 	do{
-		//system("clear");
+		system("clear");
 		cout << "============================================" << endl;
 		cout << "TURN " << count << endl;
 		cout << "============================================" << endl;
@@ -45,7 +45,7 @@ int main(){
 		baby.displayCon();
 		cout << "============================================" << endl;
 		count++;
-		pause(1);
+		pause(5);
 	}while(baby.getIsEnd() == false);
 
 }

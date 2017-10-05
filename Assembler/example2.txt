@@ -1,0 +1,14 @@
+; SUBTRACTS TWO NUMBERS TOGETHER
+; The program starts at address 1 so we will fill line 0 with var 0
+	 VAR 0;
+ADD:      LDN NUM1   ; Copy variable to accumulator as a negative
+		  STO NUM1   ;Negate it
+		  ;LDN NUM2   ; Copy variable to accum as negative
+		  ;STO NUM2   ;Negate it
+		  LDN NUM1   ;Now 10
+          SUB NUM2   ; Subtract variable from accumulator to get result
+          STO RESULT  ; Store accumulator to variable - saves answer
+END:      STP         ; Stop processor
+NUM1:    VAR 10    ; Declare first number
+NUM2:    VAR 6     ; Declare second number
+RESULT:  VAR 0   ; Used to store result

@@ -8,7 +8,7 @@
 ####	DATE:	21/11/16
 
 
-CFLAGS = -Wall -Wextra -pedantic
+CFLAGS = -Wall -Wextra -pedantic -g
 
 main:
 	g++ $(CFLAGS) -o main Baby.cpp Main.cpp
